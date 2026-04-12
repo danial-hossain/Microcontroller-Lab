@@ -1,0 +1,75 @@
+Dear Students,
+Complete the assignment according to the question and implement the LED control system using timers, counters and interrupts in C using Keil. You must simulate your design in Proteus.
+Tools
+Keil (C language)
+Proteus simulation
+Submission Requirements
+Submit the following:
+One .c source file
+Three screenshots of the Proteus simulation showing:
+normal blinking state
+external interrupt action
+counter event action
+Important Instruction
+Before taking screenshots, clearly display your Student ID inside the Proteus simulation using the Text tool. Screenshots without a visible Student ID will not be accepted.
+File Naming Convention (Mandatory)
+Use your Student ID in every file name:
+StudentID_assignment.c
+StudentID_ss1.png
+StudentID_ss2.png
+StudentID_ss3.png
+Example:
+20200104123_assignment.c
+20200104123  _ss1.png
+Rules
+Do not zip the files
+Upload files separately
+Submit before the deadline
+The submission portal will close automatically after the deadline
+Late submissions will not be accepted
+Submit only through Google Classroom
+Make sure your program runs correctly before submission. 
+
+CSE 3118 Assignment 1
+
+Write an embedded C program for the AT89X51 (8051) microcontroller to control an LED using
+timers, counters and interrupts. You must simulate the circuit in Proteus and write the code in
+Keil.
+Hardware connections:
+● LED connected to P1.0
+● Logicstate switch connected to INT1 (P3.3)
+Requirements:
+1. Timer 0 Operation
+Configure Timer 0 in Mode 1 (16-bit timer mode).
+Set the timer to generate approximately ## ms overflow interrupts.
+Use a counter variable inside the Timer 0 ISR to create longer delays.
+2. Student-Specific Delay (Mandatory)
+Let ## be the last two digits of your Student ID.
+The LED toggle delay must be:
+Delay = ## × 10 ms
+Example:
+If Student ID = 20200104123, then ## = 23
+LED toggle delay = 23 × 10 ms = 230 ms (## x counter variable)
+The LED must automatically blink using this calculated delay. Do not use any software delay
+loops. All delays must be created using the timer interrupt and counter.
+3. External Interrupt 1 (INT1)
+Configure External Interrupt 1 as edge-triggered.
+When the push button is pressed:
+● Immediately toggle the LED
+● Reset the software counter variable
+● Resume normal blinking
+4. Counter Mode using Timer 1
+Configure Timer 1 in counter mode to count external pulses (or simulated pulses in
+Proteus).
+After 20 counts:
+● Turn the LED ON for 2 seconds
+
+● Then return to the normal blinking operation
+5. Program Constraints
+● Do not use delay loops
+Use only timers and interrupts
+● Main function should contain an infinite loop only
+● All timing must be interrupt-driven
+6. Software and Simulation
+● Write code in C using Keil
+● Simulate the circuit in Proteus
