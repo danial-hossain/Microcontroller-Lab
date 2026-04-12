@@ -1,0 +1,46 @@
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+const char* ssid = "lucas";          // তোমার Wi-Fi নাম
+const char* password = "01838883395@@@";     // তোমার Wi-Fi পাসওয়ার্ড
+
+String botToken = "8694751767:AAHxAb7Xlq06rAOzjoAD3uKD6qGGWqVVPJM"; // তোমার BotFather টোকেন
+String chatID  = "7565771938";                                       // তোমার Telegram Chat ID
+
+HardwareSerial unoSerial(2); // RX2=GPIO16, TX2=GPIO17
+
+void setup() {
+  Serial.begin(115200);
+  unoSerial.begin(9600, SERIAL_8N1, 16, 17);
+  Serial.println("Connecting WiFi...");
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected!");
+  sendTelegram("🚨 Fire System Online");
+}
+
+void loop() {
+  if (unoSerial.available()) {
+    String msg = unoSerial.readStringUntil('\n');
+    msg.trim();
+    if (msg.length() > 0) {
+      sendTelegram(msg);
+      Serial.println("Sent to Telegram: " + msg);
+    }
+  }
+}
+
+void sendTelegram(String msg) {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    String url = "https://api.telegram.org/bot" + botToken +
+                 "/sendMessage?chat_id=" + chatID +
+                 "&text=" + msg;
+    http.begin(url);
+    http.GET();
+    http.end();
+  }
+}
